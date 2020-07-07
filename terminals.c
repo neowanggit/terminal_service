@@ -16,22 +16,24 @@ int get_free_terminal(terminal *terminals){
     }
     return -1;
 }
-
 /*
     update the element attribute_str, set used to true(1)
     return 0 on success, otherwise return -1
 */
 int update_terminal_attribute(terminal *terminals, int index, char *attribute){
-    if ((index < 0) || (index >= MAX_TERMINALS)) {
+    if ((index < 0) || (index >= MAX_TERMINALS)
+        || !attribute || !terminals ) {
         return -1;
     }
 
+    // The max len of attribute is MAX_ATTRIBUTES_LEN -1
     int len = strlen(attribute);
-    if (!attribute || len > MAX_ATTRIBUTES_LEN) {
+    if (len >= MAX_ATTRIBUTES_LEN) {
         return -1;
     }
 
     memcpy(terminals[index].attributes_str, attribute, len);
+    terminals[index].attributes_str[len] = 0;
     terminals[index].used = 1;
     return 0;
 }

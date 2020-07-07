@@ -24,3 +24,6 @@ Please check curl.txt for acceptance test.
 1. Ubuntu 20.04
 2. sudo apt install build-essential
 3. sudo apt install libulfius-dev  
+
+## unit test
+1. sudo apt install libcunit1 libcunit1-dev
