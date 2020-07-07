@@ -58,7 +58,7 @@ int main (int argc, char **argv) {
   ret = ulfius_start_framework(&instance);
 
   if (ret == U_OK) {
-    y_log_message(Y_LOG_LEVEL_DEBUG, "Start %sframework on port %d", instance.port);
+    y_log_message(Y_LOG_LEVEL_DEBUG, "Start framework on port %d", instance.port);
     
     // Wait for the user to press <enter> on the console to quit the application
     getchar();
