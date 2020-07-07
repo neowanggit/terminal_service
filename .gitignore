@@ -1,3 +1,4 @@
 *.o
 terminal_service
 unittest/terminal_ut
+acceptancetest/results/*
