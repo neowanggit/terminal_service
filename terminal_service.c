@@ -27,39 +27,6 @@ int callback_get_termials_all (const struct _u_request * request, struct _u_resp
 
 int callback_default (const struct _u_request * request, struct _u_response * response, void * user_data);
 
-/**
- * decode a u_map into a string
- */
-char * print_map(const struct _u_map * map) {
-  char * line, * to_return = NULL;
-  const char **keys, * value;
-  int len, i;
-  if (map != NULL) {
-    keys = u_map_enum_keys(map);
-    for (i=0; keys[i] != NULL; i++) {
-      value = u_map_get(map, keys[i]);
-      len = snprintf(NULL, 0, "key is %s, value is %s", keys[i], value);
-      line = o_malloc((len+1)*sizeof(char));
-      snprintf(line, (len+1), "key is %s, value is %s", keys[i], value);
-      if (to_return != NULL) {
-        len = o_strlen(to_return) + o_strlen(line) + 1;
-        to_return = o_realloc(to_return, (len+1)*sizeof(char));
-        if (o_strlen(to_return) > 0) {
-          strcat(to_return, "\n");
-        }
-      } else {
-        to_return = o_malloc((o_strlen(line) + 1)*sizeof(char));
-        to_return[0] = 0;
-      }
-      strcat(to_return, line);
-      o_free(line);
-    }
-    return to_return;
-  } else {
-    return NULL;
-  }
-}
-
 int main (int argc, char **argv) {
   int ret;
 
@@ -91,7 +58,7 @@ int main (int argc, char **argv) {
   ret = ulfius_start_framework(&instance);
 
   if (ret == U_OK) {
-    y_log_message(Y_LOG_LEVEL_DEBUG, "Start %sframework on port %d", ((argc == 4 && o_strcmp("-secure", argv[1]) == 0)?"secure ":""), instance.port);
+    y_log_message(Y_LOG_LEVEL_DEBUG, "Start %sframework on port %d", instance.port);
     
     // Wait for the user to press <enter> on the console to quit the application
     getchar();
@@ -152,7 +119,7 @@ int callback_post_terminals(const struct _u_request * request, struct _u_respons
 }
 
 /**
- * Callback function that put "Hello World!" and all the data sent by the client in the response as string (http method, url, params, cookies, headers, post, json, and user specific data in the response
+ * Callback function that get the attribute of terminal by id
  */
 int callback_get_termials_id (const struct _u_request * request, struct _u_response * response, void * user_data) {
   json_t * json_body = NULL;
@@ -183,7 +150,7 @@ int callback_get_termials_id (const struct _u_request * request, struct _u_respo
 }
 
 /**
- * Callback function that put "Hello World!" and all the data sent by the client in the response as string (http method, url, params, cookies, headers, post, json, and user specific data in the response
+ * Callback function that get list of current allcated terminals
  */
 int callback_get_termials_all (const struct _u_request * request, struct _u_response * response, void * user_data) {
   json_t * json_body = NULL;

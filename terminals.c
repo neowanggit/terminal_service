@@ -36,6 +36,10 @@ int update_terminal_attribute(terminal *terminals, int index, char *attribute){
     return 0;
 }
 
+/*
+    get the attribute string of the terminal by index, terminal must be used.
+    otherwise return NULL.
+*/
 char *get_terminal_attribute(terminal *terminals, int index) {
     if (!terminals || (index<0) || (index>=MAX_TERMINALS) ) {
         return NULL;
